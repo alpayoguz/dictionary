@@ -24,13 +24,13 @@ const Main = () => {
         event.preventDefault();
         fetch(`${baseUrl}${word}`)
         .then(response => response.json())
-        .then(data => setData(data[0]))
+        .then(data => setData(data))
         setIsSubmit(true)
 
     }
 
     
-    console.log(data);
+    
 
     
 
@@ -51,7 +51,7 @@ const Main = () => {
                 <button className='border py-2 px-6 rounded bg-amber-500 text-white' type='submit'>Search</button>
             </form>
         </main>
-        {isSubmit === true && <Word data={data}/>}
+        {data && <Word data={data}/>}
     </div>
   )
 }

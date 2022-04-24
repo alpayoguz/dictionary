@@ -5,6 +5,8 @@ import baseUrl from './constants/baseurl';
 const Main = () => {
     const {theme, setTheme, toggleTheme} = useContext(ThemeContext);
     const [word, setWord] = useState("")
+    const [data, setData] = useState(null)
+    const [isSubmit, setIsSubmit] = useState(false);
    
    
 
@@ -20,18 +22,20 @@ const Main = () => {
 
     function handleSubmit(event){
         event.preventDefault();
-        console.log("yehu");
         fetch(`${baseUrl}${word}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setData(data[0]))
+        setIsSubmit(true)
 
-      
     }
+
+    
+    console.log(data);
+
     
 
     const changeTheme = () => {
         toggleTheme()
-        console.log(theme);
         theme === "light" ? document.body.style.backgroundColor = "white" : document.body.style.backgroundColor = "#11181c";
     }
   return (
@@ -47,7 +51,7 @@ const Main = () => {
                 <button className='border py-2 px-6 rounded bg-amber-500 text-white' type='submit'>Search</button>
             </form>
         </main>
-        <Word/>
+        {isSubmit === true && <Word data={data}/>}
     </div>
   )
 }
